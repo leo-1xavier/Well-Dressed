@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine ❤️</title>
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 380px;
+            max-height: 90vh;
+            text-align: center;
+        }
+
+        h1 {
+            color: #ff4d6d;
+            margin-bottom: 15px;
+        }
+
+        .buttons {
+            position: relative;
+            height: 220px;
+        }
+
+        button {
+            padding: 12px 28px;
+            font-size: 16px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+
+        #yesBtn {
+            background: #ff4d6d;
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+
+        #noBtn {
+            background: #ccc;
+            position: absolute;
+            top: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .proposal {
+            display: none;
+        }
+
+        .letter {
+            text-align: left;
+            max-height: 65vh;
+            overflow-y: auto;
+            font-size: 15px;
+            color: #444;
+            padding-right: 5px;
+        }
+
+        .letter p {
+            margin-bottom: 12px;
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            top: -20px;
+            width: 14px;
+            height: 14px;
+            background-color: #8B0000;
+            /* dark red */
+            transform: rotate(45deg);
+            animation: fall linear forwards;
+            z-index: 9999;
+            /* 🔥 MOST IMPORTANT */
+            pointer-events: none;
+        }
+
+        .confetti::before,
+        .confetti::after {
+            content: '';
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            background-color: #8B0000;
+            border-radius: 50%;
+        }
+
+        .confetti::before {
+            top: -7px;
+            left: 0;
+        }
+
+        .confetti::after {
+            left: -7px;
+            top: 0;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- AUDIO -->
+    <audio id="bgMusic" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- QUESTION -->
+    <div class="container" id="questionBox">
+        <h1>Mi Luna 🌙<br>Will you be my Valentine? 💖</h1>
+        <div class="buttons">
+            <button id="yesBtn">Yes 😍</button>
+            <button id="noBtn">No 🙈</button>
+        </div>
+    </div>
+
+    <!-- PROPOSAL SCREEN -->
+    <div class="container proposal" id="proposalBox">
+        <h1>💌 My Love, Preethihaaaa 💖</h1>
+
+        <div class="letter">
+            <p>I can never forget the very first moment I saw you 😍 You were truly mesmerizing ✨ — I couldn’t take my
+                eyes off you. Something about you pulled me in instantly, like a little technical glitch in my heart 💘,
+                and from that very moment, my heart chose you ❤️</p>
+
+            <p>I love everything about us 🫶 — every smile 😊, every conversation 💬, every comfortable silence 🤍. Even
+                the little memories — like that sambar moment 🍲 — mean the world to me because it has *us* in it 💕</p>
+
+            <p>The day you made poli 🫓, samosas 🥟, and murukku 🌼 for me is something I’ll always cherish 💞. It
+                wasn’t
+                just the food — it was the love behind it 🥹❤️. And that idli podi 🤎 — my god 😋 — my whole family
+                loved
+                it, and I felt so proud thinking about you 💕</p>
+
+            <p>Every place we went together lives in my heart 💓 — Keeladi 🏛️, Sundaram Park 🌳, Aala, Zudio, Polar
+                Bear
+                🍦, our tea shop ☕, the church ⛪, hotels 🏨, and every little walk 🚶‍♂️🚶‍♀️</p>
+
+            <p>Kodaikanal 🌄 will always be magical ✨. Every second with you felt meaningful 💫. I loved every moment
+                with you — truly, deeply, endlessly 💞</p>
+
+            <p>Even when we had to go back to our places 😔💔, I believed with all my heart ❤️ that one day we’ll be in
+                the same place forever 🏡 — loving each other 💑 and choosing each other 💍</p>
+
+            <p>
+                You’ll always be my <strong>Chellama 🥰</strong><br>
+                Mi <strong>Lunaaaaa 🌙🫂</strong><br>
+                The love my heart will always choose ❤️
+            </p>
+
+            <p style="text-align:center; font-size:1.1rem;">
+                💍 <strong>Chellamaaaaaa, will you be mine forever?</strong> ❤️
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById("noBtn");
+        const yesBtn = document.getElementById("yesBtn");
+        const questionBox = document.getElementById("questionBox");
+        const proposalBox = document.getElementById("proposalBox");
+        const buttonsBox = document.querySelector(".buttons");
+        const music = document.getElementById("bgMusic");
+
+        let noAttempts = 0;
+
+        // NO button runs away
+        buttonsBox.addEventListener("mousemove", (e) => {
+            const rect = noBtn.getBoundingClientRect();
+            const distance = Math.hypot(
+                e.clientX - (rect.left + rect.width / 2),
+                e.clientY - (rect.top + rect.height / 2)
+            );
+            if (distance < 90) moveNo();
+        });
+
+        function moveNo() {
+            noAttempts++;
+            const maxX = buttonsBox.clientWidth - noBtn.offsetWidth;
+            const maxY = buttonsBox.clientHeight - noBtn.offsetHeight;
+            const safeTop = 120;
+
+            noBtn.style.left = Math.random() * maxX + "px";
+            noBtn.style.top = (Math.random() * (maxY - safeTop) + safeTop) + "px";
+
+            if (noAttempts === 5) {
+                alert("yeiii 😜 enna d olunga Yes click panniru 💖");
+            }
+        }
+
+        // YES click
+        yesBtn.addEventListener("click", () => {
+            questionBox.style.display = "none";
+            proposalBox.style.display = "block";
+            music.play();
+            launchConfetti();
+        });
+
+        // CONFETTI
+        function launchConfetti() {
+            for (let i = 0; i < 60; i++) {
+                const heart = document.createElement("div");
+                heart.className = "confetti";
+
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+
+                document.body.appendChild(heart);
+
+                setTimeout(() => heart.remove(), 5000);
+            }
+        }
+    </script>
+
+</body>
+
+</html>
